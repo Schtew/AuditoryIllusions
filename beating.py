@@ -1,13 +1,5 @@
 import numpy as np
-import sounddevice as sd
-
-def beating():
-    # Audio parameters
-    duration = 5  # Duration in seconds
-    sample_rate = 44100  # Sample rate
-    frequency1 = 440  # Frequency for the left channel
-    frequency2 = 442  # Frequency for the right channel (slightly higher)
-
+def beating(duration=5, sample_rate=44100, frequency1=440, frequency2=442, volume=0.4):
     # Generate time array
     t = np.linspace(0, duration, int(duration * sample_rate), False)
 
@@ -17,6 +9,6 @@ def beating():
 
     # Combine left and right channels into a stereo signal
     stereo_signal = np.column_stack((left_channel, right_channel))
-
-    # Play the stereo signal
-    sd.play(stereo_signal, blocking=True)
+    stereo_signal *= volume
+    return stereo_signal
+    
